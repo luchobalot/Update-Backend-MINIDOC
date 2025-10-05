@@ -1,0 +1,141 @@
+[
+  {
+    "ContainingType": "ProyectoBackendMINIDOC.Controllers.EstadosController",
+    "Method": "GetEstados",
+    "RelativePath": "api/Estados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ProyectoBackendMINIDOC.Models.Dtos.MinidocOld.EstadosDTO.EstadosDto, ProyectoBackendMINIDOC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProyectoBackendMINIDOC.Controllers.UsuarioMinidocController",
+    "Method": "GetAll",
+    "RelativePath": "api/UsuarioMinidoc",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ProyectoBackendMINIDOC.Models.Entities.MinidocNew.UsuarioMinidoc, ProyectoBackendMINIDOC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProyectoBackendMINIDOC.Controllers.UsuarioMinidocController",
+    "Method": "Post",
+    "RelativePath": "api/UsuarioMinidoc",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoBackendMINIDOC.Models.Dtos.MinidocNew.UsuarioMinidoc.CreateUsuarioMinidocDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ProyectoBackendMINIDOC.Models.Entities.MinidocNew.UsuarioMinidoc",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProyectoBackendMINIDOC.Controllers.UsuarioMinidocController",
+    "Method": "GetById",
+    "RelativePath": "api/UsuarioMinidoc/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ProyectoBackendMINIDOC.Models.Entities.MinidocNew.UsuarioMinidoc",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProyectoBackendMINIDOC.Controllers.UsuarioMinidocController",
+    "Method": "Put",
+    "RelativePath": "api/UsuarioMinidoc/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ProyectoBackendMINIDOC.Models.Dtos.MinidocNew.UsuarioMinidoc.UpdateUsuarioMinidocDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ProyectoBackendMINIDOC.Models.Entities.MinidocNew.UsuarioMinidoc",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProyectoBackendMINIDOC.Controllers.UsuarioMinidocController",
+    "Method": "Delete",
+    "RelativePath": "api/UsuarioMinidoc/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

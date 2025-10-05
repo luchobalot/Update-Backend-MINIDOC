@@ -1,0 +1,472 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "ProyectoBackendMINIDOC",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Estados": {
+      "get": {
+        "tags": [
+          "Estados"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstadosDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstadosDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstadosDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UsuarioMinidoc": {
+      "get": {
+        "tags": [
+          "UsuarioMinidoc"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioMinidoc"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioMinidoc"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioMinidoc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "UsuarioMinidoc"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsuarioMinidocDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsuarioMinidocDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsuarioMinidocDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UsuarioMinidoc/{id}": {
+      "get": {
+        "tags": [
+          "UsuarioMinidoc"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "UsuarioMinidoc"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUsuarioMinidocDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUsuarioMinidocDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUsuarioMinidocDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioMinidoc"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "UsuarioMinidoc"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateUsuarioMinidocDTO": {
+        "required": [
+          "alcanceId",
+          "apellido",
+          "destinoId",
+          "jerarquiaId",
+          "logon",
+          "matriculaRevista",
+          "nivelId",
+          "nombre",
+          "password",
+          "passwordConfirmation"
+        ],
+        "type": "object",
+        "properties": {
+          "logon": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 6,
+            "type": "string"
+          },
+          "passwordConfirmation": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "matriculaRevista": {
+            "maxLength": 7,
+            "minLength": 0,
+            "type": "string"
+          },
+          "apellido": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "nombre": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "jerarquiaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destinoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nivelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alcanceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEscalafon": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idCuerpo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "confianza": {
+            "type": "boolean"
+          },
+          "superConfianza": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EstadosDto": {
+        "type": "object",
+        "properties": {
+          "idEstado": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUsuarioMinidocDTO": {
+        "type": "object",
+        "properties": {
+          "idUsuarioMinidoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "matriculaRevista": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "jerarquiaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destinoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nivelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alcanceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEscalafon": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idCuerpo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "confianza": {
+            "type": "boolean"
+          },
+          "superConfianza": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsuarioMinidoc": {
+        "required": [
+          "apellido",
+          "idAuthUser",
+          "logon",
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "idUsuarioMinidoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idAuthUser": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "logon": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "matriculaRevista": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "maxLength": 150,
+            "minLength": 1,
+            "type": "string"
+          },
+          "nombre": {
+            "maxLength": 150,
+            "minLength": 1,
+            "type": "string"
+          },
+          "jerarquiaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destinoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nivelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alcanceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEscalafon": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idCuerpo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "confianza": {
+            "type": "boolean"
+          },
+          "superConfianza": {
+            "type": "boolean"
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
