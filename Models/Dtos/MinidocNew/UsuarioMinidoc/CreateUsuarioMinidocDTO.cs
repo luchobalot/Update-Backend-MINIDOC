@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoBackendMINIDOC.Models.Dtos.MinidocNew.UsuarioMinidoc
 {

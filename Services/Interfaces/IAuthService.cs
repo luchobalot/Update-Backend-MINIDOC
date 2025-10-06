@@ -6,6 +6,7 @@ namespace ProyectoBackendMINIDOC.Services.Interfaces
     {
         /// Crea el usuario en AuthAPI y devuelve su GUID (Id de AspNetUsers).
         /// Debe lanzar excepción si falla (no devolver Guid.Empty).
-        Task<Guid> CrearUsuarioEnAuthAsync(CreateUsuarioMinidocDTO dto);
+        Task<Guid> CrearUsuarioEnAuthAsync(CreateUsuarioMinidocDTO dto, Guid supervisorId);
+
     }
 }

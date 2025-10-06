@@ -3,11 +3,18 @@ using ProyectoBackendMINIDOC.Repositories.Implementation;
 using ProyectoBackendMINIDOC.Repositories.Interfaces;
 using ProyectoBackendMINIDOC.Services.Implementation;
 using ProyectoBackendMINIDOC.Services.Interfaces;
+using ProyectoBackendMINIDOC.Models.Entities.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using ProyectoBackendMINIDOC.Models.Entities.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// ==========================================================
+// 🔹 LOGGING
+// ==========================================================
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 // ==========================================================
 // 🔹 SERVICIOS BASE
@@ -17,13 +24,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // ==========================================================
-// 🔹 CORS - Permitir acceso desde el frontend
+// 🔹 CORS (para el frontend React en localhost:5173)
 // ==========================================================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") // URL de tu frontend React/Vite
+        policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -31,23 +38,19 @@ builder.Services.AddCors(options =>
 });
 
 // ==========================================================
-// 🔹 CONEXIONES A BASES DE DATOS
+// 🔹 BASES DE DATOS
 // ==========================================================
-
-// 🧩 Esquema viejo (solo lectura)
 builder.Services.AddDbContext<MinidocOldContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MinidocConnection")));
 
-// 🧩 Esquema nuevo (minidocNEW)
 builder.Services.AddDbContext<MinidocNewContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MinidocConnection")));
 
-// 🧩 Base de autenticación (AuthArmas)
 builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnection")));
 
 // ==========================================================
-// 🔹 IDENTITY (manejo de AspNetUsers de Auth API)
+// 🔹 IDENTITY (manejo de AspNetUsers)
 // ==========================================================
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>()
@@ -56,16 +59,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 // ==========================================================
 // 🔹 INYECCIÓN DE DEPENDENCIAS
 // ==========================================================
-
-// --- Lookups ---
 builder.Services.AddScoped<ILookupRepository, LookupRepository>();
 builder.Services.AddScoped<ILookupService, LookupService>();
-
-// --- Usuarios Minidoc ---
 builder.Services.AddScoped<IUsuarioMinidocRepository, UsuarioMinidocRepository>();
 builder.Services.AddScoped<IUsuarioMinidocService, UsuarioMinidocService>();
 
-// --- Comunicación con AuthAPI ---
 builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
 {
     var baseUrl = builder.Configuration["AuthApi:BaseUrl"];
@@ -73,12 +71,14 @@ builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
         throw new InvalidOperationException("No se configuró AuthApi:BaseUrl en appsettings.json.");
 
     client.BaseAddress = new Uri(baseUrl);
-    client.Timeout = TimeSpan.FromSeconds(10); // evita colgados si AuthAPI no responde
+    client.Timeout = TimeSpan.FromSeconds(15);
 });
 
 // ==========================================================
 // 🔹 BUILD & MIDDLEWARE
 // ==========================================================
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -87,14 +87,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// 🔧 Dejar HTTP habilitado durante desarrollo (sin HTTPS forzado)
-// app.UseHttpsRedirection();
-
+app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

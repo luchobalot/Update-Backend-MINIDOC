@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoBackendMINIDOC.Models.Entities.MinidocNew;
 using ProyectoBackendMINIDOC.Models.Dtos.MinidocNew.UsuarioMinidoc;
 using ProyectoBackendMINIDOC.Services.Interfaces;
 
@@ -10,87 +9,65 @@ namespace ProyectoBackendMINIDOC.Controllers
     public class UsuarioMinidocController : ControllerBase
     {
         private readonly IUsuarioMinidocService _usuarioService;
+        private readonly ILogger<UsuarioMinidocController> _logger;
 
-        public UsuarioMinidocController(IUsuarioMinidocService usuarioService)
+        public UsuarioMinidocController(IUsuarioMinidocService usuarioService, ILogger<UsuarioMinidocController> logger)
         {
             _usuarioService = usuarioService;
+            _logger = logger;
         }
 
-        // ================================================
-        // GET: api/UsuarioMinidoc
-        // ================================================
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UsuarioMinidoc>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var usuarios = await _usuarioService.GetAllAsync();
             return Ok(usuarios);
         }
 
-        // ================================================
-        // GET: api/UsuarioMinidoc/{id}
-        // ================================================
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsuarioMinidoc>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var usuario = await _usuarioService.GetByIdAsync(id);
-            if (usuario == null)
-                return NotFound();
+            if (usuario == null) return NotFound();
 
             return Ok(usuario);
         }
 
-        // ================================================
-        // POST: api/UsuarioMinidoc
-        // ================================================
         [HttpPost]
-        public async Task<ActionResult<UsuarioMinidoc>> Post([FromBody] CreateUsuarioMinidocDTO dto)
+        public async Task<IActionResult> CrearUsuario([FromBody] CreateUsuarioMinidocDTO dto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 var usuario = await _usuarioService.CrearUsuarioAsync(dto);
                 return CreatedAtAction(nameof(GetById), new { id = usuario.IdUsuarioMinidoc }, usuario);
             }
-            catch (InvalidOperationException ex)
-            {
-                // Error de conexión o respuesta desde AuthAPI
-                return StatusCode(StatusCodes.Status502BadGateway, new { message = ex.Message });
-            }
             catch (Exception ex)
             {
-                // Cualquier otro error inesperado
-                return StatusCode(StatusCodes.Status500InternalServerError, new
-                {
-                    message = "No se pudo crear el usuario.",
-                    detalle = ex.Message
-                });
+                _logger.LogError(ex, "❌ Error en creación de usuario.");
+                return BadRequest(new { error = ex.Message });
             }
         }
 
-        // ================================================
-        // PUT: api/UsuarioMinidoc/{id}
-        // ================================================
         [HttpPut("{id}")]
-        public async Task<ActionResult<UsuarioMinidoc>> Put(int id, [FromBody] UpdateUsuarioMinidocDTO dto)
+        public async Task<IActionResult> UpdateUsuario(int id, [FromBody] UpdateUsuarioMinidocDTO dto)
         {
             if (id != dto.IdUsuarioMinidoc)
-                return BadRequest("El id no coincide");
+                return BadRequest("ID no coincide.");
 
             var usuario = await _usuarioService.UpdateAsync(dto);
-            if (usuario == null)
-                return NotFound();
+            if (usuario == null) return NotFound();
 
             return Ok(usuario);
         }
 
-        // ================================================
-        // DELETE: api/UsuarioMinidoc/{id}
-        // ================================================
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var eliminado = await _usuarioService.DeleteAsync(id);
-            if (!eliminado)
-                return NotFound();
+            var deleted = await _usuarioService.DeleteAsync(id);
+            if (!deleted) return NotFound();
 
             return NoContent();
         }
